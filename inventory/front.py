@@ -12,21 +12,14 @@ User can:
 """
 from tkinter import *
 import inventory.back as back
-import csv
+from inventory.title import titles
 
 global cur_sel
 cur_sel = ()
 
-translation_file = 'inventory/ui.csv'
-language = 'EN'
 
-
-def text(keyword: str) -> str:
-    with open(translation_file, 'r') as csvfile:
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            if row['Keyword'] == keyword:
-                return row[language]
+def text(keyword: str, language='EN') -> str:
+    return titles[language][keyword]
 
 
 # Clear Text Entries

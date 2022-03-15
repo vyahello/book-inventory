@@ -1,0 +1,28 @@
+titles = {
+    'EN': {
+        't_book_store': 'Book Store',
+        't_title': 'Title',
+        't_author': 'Author',
+        't_year': 'Year',
+        't_isbn': 'ISBN',
+        't_view_all': 'View All',
+        't_search': 'Search Entry',
+        't_add': 'Add Entry',
+        't_update_selected': 'Update Selected',
+        't_delete_selected': 'Delete Selected',
+        't_close': 'Close',
+    },
+    'ES': {
+        't_book_store': 'Librería',
+        't_title': 'Título',
+        't_author': 'Autor',
+        't_year': 'Año',
+        't_isbn': 'ISBN',
+        't_view_all': 'Ver Todos',
+        't_search': 'Buscar',
+        't_add': 'Añadir',
+        't_update_selected': 'Actualizar',
+        't_delete_selected': 'Suprimir',
+        't_close': 'Cerrar',
+    },
+}

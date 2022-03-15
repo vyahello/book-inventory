@@ -15,7 +15,7 @@
 
 ## Usage
 
-![Screenshot](demo.png)
+![Screenshot](howto.png)
 
 ## Installation
 
@@ -27,10 +27,10 @@ cd book-inventory
 python3 -m venv venv 
 . venv/bin/activate
 pip install -r requirements.txt
-python app.py
+pyinstaller app.py
 ```
 
-Open tkinter app.
+Then please open `dist/app` file on your machine.
 
 **[⬆ back to top](#book-inventory)**
 
