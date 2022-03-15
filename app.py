@@ -1,10 +1,11 @@
-from inventory.back import create_table
-from inventory.front import window
+from tkinter import Tk
+from inventory.front import LibraryGUI
 
 
 def __main() -> None:
-    create_table()
-    window.mainloop()
+    root_window = Tk()
+    LibraryGUI(root_window)
+    root_window.mainloop()
 
 
 if __name__ == '__main__':

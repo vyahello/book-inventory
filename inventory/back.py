@@ -1,69 +1,48 @@
 import sqlite3
 
-db_file = "books.db"
 
+class Database:
+    def __init__(self, db_file: str):
+        self.conn = sqlite3.connect(db_file)
+        self.cur = self.conn.cursor()
+        self.cur.execute(
+            "CREATE TABLE IF NOT EXISTS store "
+            "(id INTEGER PRIMARY KEY, title TEXT, author TEXT, "
+            "year INTEGER, isbn TEXT)"
+        )
+        self.conn.commit()
 
-def create_table():
-    conn = sqlite3.connect(db_file)
-    cur = conn.cursor()
-    cur.execute(
-        "CREATE TABLE IF NOT EXISTS store ("
-        "id INTEGER PRIMARY KEY, "
-        "title TEXT, "
-        "author TEXT, "
-        "year INTEGER, "
-        "isbn TEXT)"
-    )
-    conn.commit()
-    conn.close()
+    def view(self):
+        self.cur.execute("SELECT * FROM store")
+        rows = self.cur.fetchall()
+        return rows
 
+    def search(self, title="", author="", year="", isbn=""):
+        self.cur.execute(
+            "SELECT * FROM store WHERE title=? "
+            "OR author=? OR year=? OR isbn=?",
+            (title, author, year, isbn),
+        )
+        rows = self.cur.fetchall()
+        return rows
 
-def view():
-    conn = sqlite3.connect(db_file)
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM store")
-    rows = cur.fetchall()
-    conn.close()
-    return rows
+    def insert(self, title, author, year, isbn):
+        self.cur.execute(
+            "INSERT INTO store VALUES (NULL, ?, ?, ?, ?)",
+            (title, author, year, isbn),
+        )
+        self.conn.commit()
 
+    def update(self, id, title, author, year, isbn):
+        self.cur.execute(
+            "UPDATE store SET title=?, author=?, " "year=?, isbn=? WHERE id=?",
+            (title, author, year, isbn, id),
+        )
+        self.conn.commit()
 
-def search(title="", author="", year="", isbn=""):
-    conn = sqlite3.connect(db_file)
-    cur = conn.cursor()
-    cur.execute(
-        "SELECT * FROM store WHERE title=? OR author=? OR year=? OR isbn=?",
-        (title, author, year, isbn),
-    )
-    rows = cur.fetchall()
-    conn.close()
-    return rows
+    def delete(self, id):
+        self.cur.execute("DELETE FROM store WHERE id=?", (id,))
+        self.conn.commit()
 
-
-def insert(title, author, year, isbn):
-    conn = sqlite3.connect(db_file)
-    cur = conn.cursor()
-    cur.execute(
-        "INSERT INTO store VALUES (NULL, ?, ?, ?, ?)",
-        (title, author, year, isbn),
-    )
-    conn.commit()
-    conn.close()
-
-
-def update(id, title, author, year, isbn):
-    conn = sqlite3.connect(db_file)
-    cur = conn.cursor()
-    cur.execute(
-        "UPDATE store SET title=?, author=?, year=?, isbn=? WHERE id=?",
-        (title, author, year, isbn, id),
-    )
-    conn.commit()
-    conn.close()
-
-
-def delete(id):
-    conn = sqlite3.connect(db_file)
-    cur = conn.cursor()
-    cur.execute("DELETE FROM store WHERE id=?", (id,))
-    conn.commit()
-    conn.close()
+    def __end__(self):
+        self.conn.close()
