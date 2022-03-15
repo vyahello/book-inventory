@@ -15,7 +15,7 @@
 
 ## Usage
 
-TBD
+![Screenshot](demo.png)
 
 ## Installation
 
